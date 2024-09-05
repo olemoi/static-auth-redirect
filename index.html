@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinkedIn Auth Redirect</title>
+    <script>
+        window.onload = function() {
+            var hash = window.location.hash.substr(1);
+            var result = hash.split('&').reduce(function (result, item) {
+                var parts = item.split('=');
+                result[parts[0]] = parts[1];
+                return result;
+            }, {});
+            
+            if (result.access_token) {
+                window.location.href = 'myapp://auth/callback?access_token=' + result.access_token;
+            } else {
+                document.body.innerHTML = 'Error: No access token found';
+            }
+        }
+    </script>
+</head>
+<body>
+    <p>Redirecting back to the app...</p>
+</body>
+</html>
